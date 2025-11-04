@@ -45,6 +45,7 @@ fetch('https://dummyjson.com/products?limit=8')
         <i class="bi bi-eye fs-6"></i> 
     </a>
     
+    
     <button class="card-icon-btn cart-btn-add" data-product-id="${product.id
         }" title="Add to Cart">
         <i class="bi bi-cart-plus fs-6"></i>

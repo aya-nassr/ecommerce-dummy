@@ -11,6 +11,104 @@ let minPrice = null;
 let maxPrice = null;
 let currentSort = "default";
 let allProducts = [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+// --- Favorites Functions ---
+function toggleFavorite(productId, productTitle, productPrice, productImage, productRating) {
+  const existingIndex = favorites.findIndex(item => item.id === productId);
+  
+  if (existingIndex > -1) {
+    favorites.splice(existingIndex, 1);
+    showCartMessage('Removed from favorites!');
+  } else {
+    favorites.push({
+      id: productId,
+      title: productTitle,
+      price: productPrice,
+      image: productImage,
+      rating: productRating
+    });
+    showCartMessage('Added to favorites!');
+  }
+  
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavoriteIcons();
+  updateFavoritesBadge();
+}
+
+function updateFavoriteIcons() {
+  document.querySelectorAll('.favorite-btn').forEach(btn => {
+    const productId = parseInt(btn.dataset.productId);
+    const isFavorite = favorites.some(item => item.id === productId);
+    const icon = btn.querySelector('i');
+    
+    if (isFavorite) {
+      icon.className = 'bi bi-heart-fill fs-6';
+      btn.style.color = '#e74c3c';
+    } else {
+      icon.className = 'bi bi-heart fs-6';
+      btn.style.color = '';
+    }
+  });
+  updateFavoritesBadge();
+}
+
+function updateFavoritesBadge() {
+  const favoritesBadge = document.getElementById('favoritesBadge');
+  if (favoritesBadge) {
+    favoritesBadge.textContent = favorites.length;
+  }
+}
+
+// --- Cart Functions ---
+function updateCartBadge() {
+  const cartBadge = document.getElementById('cartBadge');
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartBadge.textContent = totalItems;
+}
+
+function addToCart(productId, productTitle, productPrice, productImage) {
+  const existingItem = cart.find(item => item.id === productId);
+  
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      id: productId,
+      title: productTitle,
+      price: productPrice,
+      image: productImage,
+      quantity: 1
+    });
+  }
+  
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartBadge();
+  
+  // Show success message
+  showCartMessage('Product added to cart!');
+}
+
+function showCartMessage(message) {
+  // Create toast notification
+  const toast = document.createElement('div');
+  toast.className = 'position-fixed top-0 end-0 m-3 alert alert-success alert-dismissible fade show';
+  toast.style.zIndex = '9999';
+  toast.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+  
+  document.body.appendChild(toast);
+  
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    if (toast.parentNode) {
+      toast.remove();
+    }
+  }, 3000);
+}
 
 // --- Functions ---
 
@@ -123,10 +221,13 @@ function displayProducts(products) {
     card.innerHTML = `
       <div class="card h-100 shadow-sm border-0 rounded-3 position-relative product-card">
         <div class="card-icons-overlay">
+          <button class="card-icon-btn favorite-btn" data-product-id="${product.id}" title="Add to Favorites" onclick="toggleFavorite(${product.id}, '${product.title.replace(/'/g, "\\'")}'', ${finalPrice}, '${product.images[0]}', ${product.rating})">
+            <i class="bi bi-heart fs-6"></i>
+          </button>
           <a href="/products/product-details.html?id=${product.id}" class="card-icon-btn view-btn" title="View Product">
             <i class="bi bi-eye fs-6"></i> 
           </a>
-          <button class="card-icon-btn cart-btn-add" title="Add to Cart">
+          <button class="card-icon-btn cart-btn-add" title="Add to Cart" onclick="addToCart(${product.id}, '${product.title.replace(/'/g, "\\'")}', ${finalPrice}, '${product.images[0]}')">
             <i class="bi bi-cart-plus fs-6"></i>
           </button>
         </div>
@@ -274,3 +375,6 @@ loadCategories();
 initializeFilters();
 loadFromURL();
 loadProducts(currentPage);
+updateCartBadge();
+updateFavoritesBadge();
+setTimeout(updateFavoriteIcons, 100);

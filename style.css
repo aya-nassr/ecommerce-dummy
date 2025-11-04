@@ -39,6 +39,26 @@ position:absolute;
 .theme-toggle-btn:hover, .cart-btn:hover {
     transform: scale(1.1);
 }
+
+.cart-btn {
+    border: none;
+    background: transparent;
+    color: var(--secondary-color);
+    transition: all var(--transition-speed);
+}
+
+.cart-btn:hover {
+    color: var(--primary-color);
+}
+
+#cartBadge {
+    font-size: 0.75rem;
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .theme-icon {
     width: 30px;
     height: 30px;

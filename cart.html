@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - ONLINE SHOPPING</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <div class="nav-logo">
+                    <a class="logo-icon text-decoration-none" href="index.html">
+                        <img src="images/logo 1 (1).png" alt="logo" width="90" height="60">
+                        <span class="text-dark fs-5 fw-bold">ONLINE SHOPPING</span>
+                    </a>
+                </div>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavCentered" aria-controls="navbarNavCentered" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavCentered">
+                    <ul class="navbar-nav mx-auto align-items-center gap-4 fw-bold">
+                        <li class="nav-item"><a class="nav-link fw-bold" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold" href="#Blog&News">Service</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold" href="products.html">Our Product</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold" href="#Contact">Contact</a></li>
+                    </ul>
+
+                    <ul class="navbar-nav nav-icon align-items-center position-relative">
+                        <input type="text" class="form-control" placeholder="Search products...">
+                        <li class="nav-item"><a href="#" class="fs-5"><i class="bi fw-bold text-danger bi-search icon"></i></a></li>
+                    </ul>
+
+                    <a href="cart.html" class="btn cart-btn position-relative" id="cartBtn" aria-label="Shopping Cart">
+                        <i class="bi bi-cart-fill fs-4"></i>
+                        <span class="position-absolute top-0 start-10 translate-middle badge rounded-5 bg-danger" id="cartBadge">0</span>
+                    </a>
+
+                    <a href="favorites.html" class="btn cart-btn position-relative" id="favoritesBtn" aria-label="Favorites">
+                        <i class="bi bi-heart-fill fs-4"></i>
+                        <span class="position-absolute top-0 start-10 translate-middle badge rounded-5 bg-danger" id="favoritesBadge">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-5 py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h4 class="mb-0">
+                            <i class="bi bi-cart-fill me-2 text-danger"></i>Shopping Cart
+                        </h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="cartItems"></div>
+                        
+                        <div id="emptyCart" class="text-center py-5" style="display: none;">
+                            <div class="mb-4">
+                                <i class="bi bi-cart-x" style="font-size: 4rem; color: #dee2e6;"></i>
+                            </div>
+                            <h4 class="text-muted mb-3">Your cart is empty</h4>
+                            <p class="text-muted mb-4">Looks like you haven't added any items to your cart yet</p>
+                            <a href="products.html" class="btn btn-danger btn-lg">
+                                <i class="bi bi-shop me-2"></i>Start Shopping
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div id="cartSummary" class="card shadow-sm border-0 sticky-top" style="top: 100px; display: none;">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-receipt me-2"></i>Order Summary
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                            <span class="text-muted">Items:</span>
+                            <span class="fw-bold" id="totalItems">0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                            <span class="text-muted">Shipping:</span>
+                            <span class="text-success fw-bold">FREE</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="h5 mb-0">Total:</span>
+                            <span class="h5 mb-0 text-danger fw-bold" id="totalPrice">$0.00</span>
+                        </div>
+                        <a href="checkout.html" class="btn btn-success btn-lg w-100 mb-3">
+                            <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
+                        </a>
+                        <div class="text-center">
+                            <small class="text-muted">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Secure checkout guaranteed
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./cart.js"></script>
+</body>
+</html>

@@ -1,4 +1,50 @@
 // product-details.js
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+function updateCartBadge() {
+  const cartBadge = document.getElementById('cartBadge');
+  if (cartBadge) {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBadge.textContent = totalItems;
+  }
+}
+
+function updateFavoritesBadge() {
+  const favoritesBadge = document.getElementById('favoritesBadge');
+  if (favoritesBadge) {
+    favoritesBadge.textContent = favorites.length;
+  }
+}
+
+function addToCart(productId, productTitle, productPrice, productImage, quantity = 1) {
+  const existingItem = cart.find(item => item.id === productId);
+  
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: productId,
+      title: productTitle,
+      price: productPrice,
+      image: productImage,
+      quantity: quantity
+    });
+  }
+  
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartBadge();
+  showMessage('Product added to cart!');
+}
+
+function showMessage(message) {
+  const toast = document.createElement('div');
+  toast.className = 'position-fixed top-0 end-0 m-3 alert alert-success alert-dismissible fade show';
+  toast.style.zIndex = '9999';
+  toast.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+  document.body.appendChild(toast);
+  setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3000);
+}
 
 async function showProduct(id) {
   const container = document.getElementById('product-details-container');
@@ -68,7 +114,7 @@ async function showProduct(id) {
                 ${p.discountPercentage > 0 ? `<span class="badge bg-success fs-6">${p.discountPercentage.toFixed(0)}% OFF</span>` : ''}
               </div>
               
-              <button class="btn btn-danger btn-lg w-100 fw-bold">
+              <button class="btn btn-danger btn-lg w-100 fw-bold" onclick="addToCart(${p.id}, '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.images[0]}', parseInt(document.getElementById('productQuantity').value))">
                 <i class="bi bi-cart-fill me-2"></i> Add to Cart
               </button>
             </div>
@@ -128,6 +174,11 @@ function getProductIdFromUrl() {
 
 // استدعاء الدالة لعرض المنتج برقم المعرف المستخلص
 const productId = getProductIdFromUrl();
+showProduct(productId);
 
-    showProduct(productId);
+// Initialize badges
+document.addEventListener('DOMContentLoaded', function() {
+  updateCartBadge();
+  updateFavoritesBadge();
+});
 
