@@ -1,0 +1,311 @@
+:root {
+    --primary-color: #e74c3c;
+    --secondary-color: #2c3e50;
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+    --card-bg: #fff;
+    --border-color: #ecf0f1;
+    --grey-text: #7f8c8d;
+    --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-medium: 0 5px 15px rgba(0,0,0,0.1);
+    --shadow-hover: 0 10px 25px rgba(0,0,0,0.15);
+    --transition-speed: 0.3s;
+}
+
+.navbar{
+    background-color: white;
+
+}
+.nav-link {
+    color: var(--secondary-color);
+    font-weight: 500;
+    transition: color var(--transition-speed);
+}
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+
+.icon{
+position:absolute;
+  top: 5%;
+  right: 10px;
+}
+
+.theme-toggle-btn:hover, .cart-btn:hover {
+    transform: scale(1.1);
+}
+.theme-icon {
+    width: 30px;
+    height: 30px;
+}
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.card{
+    cursor: pointer;
+    
+}
+.card:hover{
+     transform: translateY(-5px);
+}
+
+.hero-card{
+    min-height: 623px; 
+    background: linear-gradient(120deg, rgba(44,62,80,0.75), rgba(231,76,60,0.55)), url('images/left-banner-image.jpg'); 
+    background-size: cover; 
+    background-position: center;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: rgb(212, 48, 64) !important;  /* الخلفية باللون الأحمر */
+    border-color: rgb(220, 53, 69) !important;      /* لتغيير حدود الزر */
+    color: white !important;          
+}
+
+.pagination .page-link:hover {
+    background-color: rgb(165, 165, 165);
+    color: white;
+}
+.categories-wrapper {
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
+
+.category-card {
+  transition: all 0.3s ease-in-out;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.category-icon {
+  font-size: 40px;
+  color: #dc3545;
+}
+
+
+    .product {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+      text-align: center;
+    }
+    .product img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .pagination button {
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;}
+.category-card {
+    min-width: 120px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+
+.card-img {
+    height: 200px; 
+    object-fit: contain;
+}
+.women-card{
+    height: 300px; 
+    background: linear-gradient(120deg, rgba(231,76,60,0.30), rgba(44,62,80,0.44)), url('images/baner-right-image-01.jpg'); 
+    background-size: cover; 
+    background-position: center;
+}
+
+.men-card{
+    height: 300px; 
+    background: linear-gradient(120deg, rgba(44,62,80,0.55), rgba(231,76,60,0.22)), url('images/baner-right-image-02.jpg'); 
+    background-size: cover; 
+}
+
+.Beauty-card{
+    height: 300px; 
+    background: linear-gradient(120deg, rgba(231,76,60,0.44), rgba(44,62,80,0.44)), url('images/baner-right-image-03.jpg'); 
+    background-size: cover;
+    background-position: center; 
+}
+
+.Home-card{
+    height: 300px; 
+    background: linear-gradient(120deg, rgba(44,62,80,0.55), rgba(231,76,60,0.22)), url('images/baner-right-image-04.jpg'); 
+    background-size: cover; 
+    background-position: center;
+}
+.carousel-control-prev-icon, .carousel-control-next-icon{
+  background-color: var(--color-text-primary);
+  border-radius: 50%;
+  display: inline-block;
+
+}
+
+.carousel-control-prev,.carousel-control-next{
+  position: static; 
+  opacity: 1; 
+}
+
+.footer {
+    background: linear-gradient(120deg, rgba(44,62,80,0.85) 0%, rgba(231,76,60,0.55) 100%), url("images/about-us-page-heading.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+.font{
+  color: white;
+}
+.font:hover{
+  color: rgb(212, 48, 64);
+}
+
+.footer-text {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    color: #e0e0e0;
+    opacity: 0.85;
+
+}
+/* حاوية الأيقونات: لتجميع الأيقونات وتحديد موضعها */
+.card-icons-overlay {
+    position: absolute; /* لوضعها فوق محتوى البطاقة */
+    top: 10px;
+    right: 10px;
+    z-index: 10; /* لضمان ظهورها فوق الصورة */
+    display: flex; /* لترتيب الأيقونات عمودياً */
+    flex-direction: column;
+    gap: 3px;
+    visibility: hidden; /* إخفاء الأيقونات عن طريق إيقاف رؤيتها */
+    transition: opacity var(--transition-speed); /* لتأثير الظهور الناعم */
+}
+
+/* تصميم الأيقونات نفسها */
+.card-icon-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(212, 48, 64);
+    color: white; /* لون الأيقونة */
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.card-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+.card:hover .card-icons-overlay {
+    opacity: 1; 
+    visibility: visible;
+}
+
+/* Filter styles */
+.price-quick-filter.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+}
+
+.product-card {
+    transition: all var(--transition-speed) ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.new-badge {
+    z-index: 5;
+}
+
+.discount-badge {
+    z-index: 5;
+}
+
+/* Pagination styles */
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.pagination .page-link {
+    color: var(--text-color);
+    border-color: var(--border-color);
+    background-color: var(--card-bg);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--light-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.pagination .page-item.disabled .page-link {
+    color: var(--grey-text);
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+#pageNumbers {
+    align-items: center;
+}
+@media (max-width: 991px) {
+
+.form-control{
+margin: 30px;
+}
+.icon{
+  top: 33%;
+}
+.hero-card{
+  margin: 25px;  
+}
+
+}
+
+ 
