@@ -39,7 +39,6 @@ function updateFavoriteIcons() {
     
     if (isFavorite) {
       icon.className = 'bi bi-heart-fill fs-6';
-      btn.style.color = '#e74c3c';
     } else {
       icon.className = 'bi bi-heart fs-6';
       btn.style.color = '';
@@ -99,7 +98,7 @@ function showCartMessage(message) {
 
 // Load featured products
 function loadFeaturedProducts() {
-  fetch('https://dummyjson.com/products?limit=6')
+  fetch('https://dummyjson.com/products?limit=8')
     .then(res => res.json())
     .then(data => {
       const container = document.getElementById('product-list');
@@ -111,7 +110,7 @@ function loadFeaturedProducts() {
         const finalPrice = (product.price * (1 - discount / 100)).toFixed(2);
         
         const productCard = document.createElement('div');
-        productCard.className = 'col-6 col-md-6 col-lg-4 mb-4';
+        productCard.className = 'col-6 col-md-6 col-lg-3 mb-4';
         productCard.innerHTML = `
           <div class="card h-100 shadow-sm border-0 rounded-3 position-relative product-card">
             <div class="card-icons-overlay">

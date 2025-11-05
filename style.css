@@ -59,14 +59,6 @@ position:absolute;
     align-items: center;
     justify-content: center;
 }
-.theme-icon {
-    width: 30px;
-    height: 30px;
-}
-.row {
-  margin-right: 0;
-  margin-left: 0;
-}
 
 .card{
     cursor: pointer;
