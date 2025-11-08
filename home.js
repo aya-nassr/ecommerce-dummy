@@ -1,106 +1,9 @@
-// Cart functionality for home page
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-// Update cart badge
-function updateCartBadge() {
-  const cartBadge = document.getElementById('cartBadge');
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartBadge.textContent = totalItems;
-}
-
-// --- Favorites Functions ---
-function toggleFavorite(productId, productTitle, productPrice, productImage, productRating) {
-  const existingIndex = favorites.findIndex(item => item.id === productId);
-  
-  if (existingIndex > -1) {
-    favorites.splice(existingIndex, 1);
-    showCartMessage('Removed from favorites!');
-  } else {
-    favorites.push({
-      id: productId,
-      title: productTitle,
-      price: productPrice,
-      image: productImage,
-      rating: productRating
-    });
-    showCartMessage('Added to favorites!');
-  }
-  
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  updateFavoriteIcons();
-}
-
-function updateFavoriteIcons() {
-  document.querySelectorAll('.favorite-btn').forEach(btn => {
-    const productId = parseInt(btn.dataset.productId);
-    const isFavorite = favorites.some(item => item.id === productId);
-    const icon = btn.querySelector('i');
-    
-    if (isFavorite) {
-      icon.className = 'bi bi-heart-fill fs-6';
-    } else {
-      icon.className = 'bi bi-heart fs-6';
-      btn.style.color = '';
-    }
-  });
-  updateFavoritesBadge();
-}
-
-function updateFavoritesBadge() {
-  const favoritesBadge = document.getElementById('favoritesBadge');
-  if (favoritesBadge) {
-    favoritesBadge.textContent = favorites.length;
-  }
-}
-
-// Add to cart function
-function addToCart(productId, productTitle, productPrice, productImage) {
-  const existingItem = cart.find(item => item.id === productId);
-  
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({
-      id: productId,
-      title: productTitle,
-      price: productPrice,
-      image: productImage,
-      quantity: 1
-    });
-  }
-  
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-  
-  // Show success message
-  showCartMessage('Product added to cart!');
-}
-
-// Show cart message
-function showCartMessage(message) {
-  const toast = document.createElement('div');
-  toast.className = 'position-fixed top-0 end-0 m-3 alert alert-success alert-dismissible fade show';
-  toast.style.zIndex = '9999';
-  toast.innerHTML = `
-    ${message}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  `;
-  
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    if (toast.parentNode) {
-      toast.remove();
-    }
-  }, 3000);
-}
 
 // Load featured products
-function loadFeaturedProducts() {
-  fetch('https://dummyjson.com/products?limit=8')
-    .then(res => res.json())
-    .then(data => {
+async function loadFeaturedProducts() {
+  try {
+    const res = await fetch('https://dummyjson.com/products?limit=8');
+    const data = await res.json();
       const container = document.getElementById('product-list');
       container.innerHTML = '';
       
@@ -126,7 +29,7 @@ function loadFeaturedProducts() {
             </div>
             ${isNew ? '<span class="position-absolute top-0 start-0 bg-success text-white px-2 py-1 small rounded-end new-badge">NEW</span>' : ''}
             ${discount > 0 ? `<span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 small rounded-start discount-badge">-${discount}%</span>` : ''}
-            <img src="${product.images[0]}" class="card-img-top p-3" alt="${product.title}" style="height: 200px; object-fit: contain;">
+            <img src="${product.images[0]}" class="card-img-top p-3" alt="${product.title}" >
             <div class="card-body d-flex flex-column text-center">
               <h6 class="fw-bold text-truncate mb-2">${product.title}</h6>
               <div class="text-warning mb-2">
@@ -144,14 +47,11 @@ function loadFeaturedProducts() {
         `;
         container.appendChild(productCard);
       });
-    })
-    .catch(error => console.error('Error loading products:', error));
+  } catch (error) {
+    console.error('Error loading products:', error);
+  }
 }
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  updateCartBadge();
-  updateFavoritesBadge();
   loadFeaturedProducts();
-  setTimeout(updateFavoriteIcons, 100);
 });

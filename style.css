@@ -105,7 +105,10 @@ position:absolute;
   font-size: 40px;
   color: #dc3545;
 }
-
+.card-img-top{
+    height: 200px; 
+    object-fit: contain;
+}
 
     .product {
       border: 1px solid #ddd;
@@ -303,6 +306,12 @@ position:absolute;
     border-color: var(--border-color);
 }
 
+.checkout{
+    width: 40px; 
+    height: 40px; 
+    object-fit: contain;
+}
+
 #pageNumbers {
     align-items: center;
 }
@@ -317,6 +326,7 @@ margin: 30px;
 .hero-card{
   margin: 25px;  
 }
+
 
 }
 

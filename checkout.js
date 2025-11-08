@@ -1,5 +1,4 @@
 // Checkout page functionality
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Display order items
 function displayOrderItems() {
@@ -17,7 +16,7 @@ function displayOrderItems() {
     orderItem.className = 'd-flex justify-content-between align-items-center mb-2 pb-2 border-bottom';
     orderItem.innerHTML = `
       <div class="d-flex align-items-center">
-        <img src="${item.image}" alt="${item.title}" style="width: 40px; height: 40px; object-fit: contain;" class="me-2 rounded">
+        <img src="${item.image}" alt="${item.title}"  class="me-2 checkout rounded">
         <div>
           <small class="fw-bold d-block">${item.title}</small>
           <small class="text-muted">Qty: ${item.quantity}</small>
@@ -93,12 +92,10 @@ function showSuccessModal() {
   document.body.appendChild(modal);
 }
 
-// Go to home page
 function goHome() {
   window.location.href = 'index.html';
 }
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
   displayOrderItems();
 });

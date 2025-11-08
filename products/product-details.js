@@ -1,22 +1,6 @@
 // product-details.js
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-function updateCartBadge() {
-  const cartBadge = document.getElementById('cartBadge');
-  if (cartBadge) {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartBadge.textContent = totalItems;
-  }
-}
-
-function updateFavoritesBadge() {
-  const favoritesBadge = document.getElementById('favoritesBadge');
-  if (favoritesBadge) {
-    favoritesBadge.textContent = favorites.length;
-  }
-}
-
+// Override addToCart to support quantity parameter
 function addToCart(productId, productTitle, productPrice, productImage, quantity = 1) {
   const existingItem = cart.find(item => item.id === productId);
   
@@ -37,15 +21,6 @@ function addToCart(productId, productTitle, productPrice, productImage, quantity
   showMessage('Product added to cart!');
 }
 
-function showMessage(message) {
-  const toast = document.createElement('div');
-  toast.className = 'position-fixed top-0 end-0 m-3 alert alert-success alert-dismissible fade show';
-  toast.style.zIndex = '9999';
-  toast.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-  document.body.appendChild(toast);
-  setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3000);
-}
-
 async function showProduct(id) {
   const container = document.getElementById('product-details-container');
   
@@ -60,7 +35,7 @@ async function showProduct(id) {
             
             <div class="col-md-5">
               <div class="product-image-container bg-light p-3 rounded-3 text-center">
-  <!-- الصورة الكبيرة -->
+
   <img 
     id="main-product-image"
     src="${p.images[0]}" 
@@ -176,9 +151,5 @@ function getProductIdFromUrl() {
 const productId = getProductIdFromUrl();
 showProduct(productId);
 
-// Initialize badges
-document.addEventListener('DOMContentLoaded', function() {
-  updateCartBadge();
-  updateFavoritesBadge();
-});
+
 

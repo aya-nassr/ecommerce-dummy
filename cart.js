@@ -1,12 +1,4 @@
 // Cart page functionality
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-// Update cart badge
-function updateCartBadge() {
-  const cartBadge = document.getElementById('cartBadge');
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartBadge.textContent = totalItems;
-}
 
 // Display cart items
 function displayCartItems() {
@@ -67,26 +59,7 @@ function displayCartItems() {
   updateCartSummary();
 }
 
-// Update quantity
-function updateQuantity(index, change) {
-  cart[index].quantity += change;
-  
-  if (cart[index].quantity <= 0) {
-    cart.splice(index, 1);
-  }
-  
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-  displayCartItems();
-}
 
-// Remove from cart
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-  displayCartItems();
-}
 
 // Update cart summary
 function updateCartSummary() {
@@ -99,6 +72,5 @@ function updateCartSummary() {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  updateCartBadge();
   displayCartItems();
 });

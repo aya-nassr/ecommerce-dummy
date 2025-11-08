@@ -1,18 +1,13 @@
-function getStars(rating) {
-  const roundedRating = Math.round(rating);
-  const fullStars = Math.min(5, roundedRating);
-  const emptyStars = 5 - fullStars;
-  return '★'.repeat(fullStars) + '☆'.repeat(emptyStars);
-}
 
-fetch('https://dummyjson.com/products?limit=8')
-  .then((response) => response.json())
-  .then((data) => {
-    const productList = document.getElementById('product-list');
+
+async function fetchAndDisplayProducts() {
+  const apiUrl = 'https://dummyjson.com/products?limit=8';
+  const productList = document.getElementById('product-list');
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
     productList.innerHTML = '';
-    const productsToDisplay = data.products || data;
-
-    productsToDisplay.forEach((product, index) => {
+    data.products.forEach((product, index) => {
       const isNew = index < 3;
       const newBadgeHtml = isNew
         ? `<span class="position-absolute top-0 start-0 bg-success text-white px-2 py-1 small rounded-end new-badge">NEW</span>`
@@ -76,4 +71,11 @@ fetch('https://dummyjson.com/products?limit=8')
         `;
       productList.appendChild(card);
     });
-  });
+  }
+  catch (error) {
+    console.error("Failed to fetch products:", error);
+  }
+
+}
+
+fetchAndDisplayProducts();
