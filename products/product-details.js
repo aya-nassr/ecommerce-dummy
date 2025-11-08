@@ -1,25 +1,5 @@
-// product-details.js
 
-// Override addToCart to support quantity parameter
-function addToCart(productId, productTitle, productPrice, productImage, quantity = 1) {
-  const existingItem = cart.find(item => item.id === productId);
-  
-  if (existingItem) {
-    existingItem.quantity += quantity;
-  } else {
-    cart.push({
-      id: productId,
-      title: productTitle,
-      price: productPrice,
-      image: productImage,
-      quantity: quantity
-    });
-  }
-  
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-  showMessage('Product added to cart!');
-}
+
 
 async function showProduct(id) {
   const container = document.getElementById('product-details-container');
@@ -40,11 +20,8 @@ async function showProduct(id) {
     id="main-product-image"
     src="${p.images[0]}" 
     class="img-fluid rounded-3 mb-3" 
-    alt="${p.title}" 
-    style="max-height: 300px;"
-  >
+    alt="${p.title}" >
 
-  <!-- الصور المصغرة -->
   <div class="d-flex justify-content-center gap-3">
     ${p.images.slice(0, 3).map(img => `
       <img 
@@ -99,7 +76,7 @@ async function showProduct(id) {
       </div>
     `;
   } catch (e) {
-    // رسالة خطأ
+
     container.innerHTML = `
       <div class="alert alert-danger text-center" role="alert">
         Could not load product details. Please try again later.
@@ -122,18 +99,13 @@ function getRatingStars(rating) {
     const hasHalfStar = rating % 1 >= 0.5;
     // عدد النجوم الفارغة
     const emptyStarsCount = 5 - fullStarsCount - (hasHalfStar ? 1 : 0);
-
-    // إضافة النجوم الكاملة
     for (let i = 0; i < fullStarsCount; i++) {
         starsHtml += fullStar;
     }
 
-    // إضافة نصف النجمة
     if (hasHalfStar) {
         starsHtml += halfStar;
     }
-
-    // إضافة النجوم الفارغة
     for (let i = 0; i < emptyStarsCount; i++) {
         starsHtml += emptyStar;
     }
@@ -142,12 +114,11 @@ function getRatingStars(rating) {
 }
 
 function getProductIdFromUrl() {
-    // الحصول على المعرف (ID) من URL باستخدام URLSearchParams
+
     const params = new URLSearchParams(window.location.search);
     return params.get('id');
 }
 
-// استدعاء الدالة لعرض المنتج برقم المعرف المستخلص
 const productId = getProductIdFromUrl();
 showProduct(productId);
 
